@@ -1,8 +1,13 @@
-﻿git : To github.com:2443978582-rgb/AppliedAnalysis.git
-所在位置 行:1 字符: 156
-+ ... rect integral_same/integral_congr_ae usage' -q; git push 2>&1 | Out-F ...
-+                                                     ~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (To github.com:2...iedAnalysis.git:String) [], RemoteException
+﻿git : remote: 
+所在位置 行:1 字符: 160
++ ... o theorems)' -q 2>$null; git push -u origin test-minimal 2>&1 | Out-F ...
++                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (remote: :String) [], RemoteException
     + FullyQualifiedErrorId : NativeCommandError
  
-   05068a0..563d00b  main -> main
+remote: Create a pull request for 'test-minimal' on GitHub by visiting:        
+remote:      https://github.com/2443978582-rgb/AppliedAnalysis/pull/new/test-minimal        
+remote: 
+branch 'test-minimal' set up to track 'origin/test-minimal'.
+To github.com:2443978582-rgb/AppliedAnalysis.git
+ * [new branch]      test-minimal -> test-minimal
