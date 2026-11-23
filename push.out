@@ -5,4 +5,4 @@
     + CategoryInfo          : NotSpecified: (To github.com:2...iedAnalysis.git:String) [], RemoteException
     + FullyQualifiedErrorId : NativeCommandError
  
-   3f33d7b..7a5b67e  test-minimal -> test-minimal
+   7a5b67e..6006ab2  test-minimal -> test-minimal
