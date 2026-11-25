@@ -9,3 +9,5 @@
 import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
 import AppliedAnalysis.LaplaceMethod.Defs
 import AppliedAnalysis.LaplaceMethod.Basic
+import AppliedAnalysis.LaplaceMethod.Elementary
+import AppliedAnalysis.LaplaceMethod.Bound
