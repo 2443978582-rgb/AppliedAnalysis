@@ -10,22 +10,37 @@ open MeasureTheory
 
 theorem integral_exp_neg_mul {s R : ℝ} (hs : s ≠ 0) :
     ∫ t in (0 : ℝ)..R, Real.exp (-(s * t)) = (1 - Real.exp (-(s * R))) / s := by
-  have hderiv : ∀ t ∈ Set.uIcc (0 : ℝ) R,
-      HasDerivAt (fun t : ℝ => -(1 / s) * Real.exp (-(s * t))) (Real.exp (-(s * t))) t := by
+  let F : ℝ → ℝ := fun t => -(1 / s) * Real.exp (-(s * t))
+  have hF_deriv : ∀ t ∈ Set.uIcc (0 : ℝ) R, HasDerivAt F (Real.exp (-(s * t))) t := by
     intro t _
-    have hlin : HasDerivAt (fun t : ℝ => -(s * t)) (-s) t := by
-      simpa using ((hasDerivAt_id t).const_mul s).neg
-    have hexp : HasDerivAt (fun t : ℝ => Real.exp (-(s * t)))
-        (Real.exp (-(s * t)) * (-s)) t :=
-      (Real.hasDerivAt_exp (-(s * t))).comp t hlin
-    have hmul := hexp.const_mul (-(1 / s))
-    convert hmul using 1
-    field_simp
+    have h1 : HasDerivAt (fun x : ℝ => -(s * x)) (-s) t := by
+      simpa using (hasDerivAt_id t).const_mul s |>.neg
+    have h2 : HasDerivAt (fun x : ℝ => Real.exp (-(s * x)))
+        (Real.exp (-(s * t)) * (-s)) t := by
+      exact (Real.hasDerivAt_exp (-(s * t))).comp t h1
+    have h3 : HasDerivAt (fun x : ℝ => -(1 / s) * Real.exp (-(s * x)))
+        ((-(1 / s) : ℝ) * (Real.exp (-(s * t)) * (-s))) t :=
+      h2.const_mul (-(1 / s))
+    have h4 : (-(1 / s) : ℝ) * (Real.exp (-(s * t)) * (-s)) = Real.exp (-(s * t)) := by
+      ring_nf
+      field_simp [hs]
+      ring
+    have h5 : HasDerivAt F ((-(1 / s) : ℝ) * (Real.exp (-(s * t)) * (-s))) t := h3
+    exact h5 ▸ h4
+  have hint : IntervalIntegrable (fun t : ℝ => Real.exp (-(s * t))) volume 0 R := by
+    exact (by fun_prop : Continuous (fun t : ℝ => Real.exp (-(s * t)))).intervalIntegrable 0 R
+  have hmain : ∫ t in (0 : ℝ)..R, Real.exp (-(s * t)) = F R - F 0 :=
+    intervalIntegral.integral_eq_sub_of_hasDerivAt hF_deriv hint
+  have hF0 : F 0 = -(1 / s) := by
+    simp only [F, Real.exp_zero]
     ring
-  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv]
-  · simp only [mul_zero, Real.exp_zero]
-    field_simp
+  have hgoal : F R - F 0 = (1 - Real.exp (-(s * R))) / s := by
+    rw [hF0]
+    have hF_R : F R = -(1 / s) * Real.exp (-(s * R)) := by rfl
+    rw [hF_R]
+    field_simp [hs]
     ring
-  · exact (by fun_prop : Continuous fun t : ℝ => Real.exp (-(s * t))).intervalIntegrable 0 R
+  rw [hmain]
+  exact hgoal
 
 end AppliedAnalysis.Laplace
