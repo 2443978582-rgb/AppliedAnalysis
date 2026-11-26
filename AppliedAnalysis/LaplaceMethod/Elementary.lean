@@ -25,8 +25,10 @@ theorem integral_exp_neg_mul {s R : ℝ} (hs : s ≠ 0) :
       ring_nf
       field_simp [hs]
       ring
-    have h5 : HasDerivAt F ((-(1 / s) : ℝ) * (Real.exp (-(s * t)) * (-s))) t := h3
-    exact h5 ▸ h4
+    have h6 : HasDerivAt F (Real.exp (-(s * t))) t := by
+      rw [← h4]
+      exact h3
+    exact h6
   have hint : IntervalIntegrable (fun t : ℝ => Real.exp (-(s * t))) volume 0 R := by
     exact (by fun_prop : Continuous (fun t : ℝ => Real.exp (-(s * t)))).intervalIntegrable 0 R
   have hmain : ∫ t in (0 : ℝ)..R, Real.exp (-(s * t)) = F R - F 0 :=
