@@ -37,10 +37,11 @@ theorem integral_exp_neg_mul {s R : ℝ} (hs : s ≠ 0) :
   have hF0 : F 0 = -(1 / s) := by
     simp only [F, Real.exp_zero]
     ring
-  rw [hF0]
   have hF_R : F R = -(1 / s) * Real.exp (-(s * R)) := by rfl
-  rw [hF_R]
-  field_simp [hs]
-  ring
+  have hcalc : F R - F 0 = (1 - Real.exp (-(s * R))) / s := by
+    rw [hF_R, hF0]
+    field_simp [hs]
+    rfl
+  exact hcalc
 
 end AppliedAnalysis.Laplace
