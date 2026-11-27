@@ -8,9 +8,9 @@
 
 | 项 | 状态 |
 |----|------|
-| 仓库骨架 | ✅ 可构建（依赖已解析，Mathlib v4.33.1） |
-| Roadmap | 1 条：`LaplaceMethod`（v1，未实现） |
-| 代码 | 0 行实现 |
+| 仓库骨架 | ✅ 可构建（Lean v4.33.1 + Mathlib master） |
+| Roadmap | 1 条：`LaplaceMethod`（A1–A10） |
+| 代码 | A1 / A2 / A3 / A4a / A4b 已合并；A5 规格待裁决；A6–A10 待实现 |
 | 评审规则 | `rubrics/correctness.md`（v1） |
 
 ## 结构与边界
@@ -19,7 +19,11 @@
 AppliedAnalysis/
 ├── AppliedAnalysis.lean        # 库根文件（只加 import）
 ├── AppliedAnalysis/            # ← AI 唯一可写的代码区
-│   └── LaplaceMethod/          #   按 roadmap 实现（当前不存在）
+│   └── LaplaceMethod/
+│       ├── Defs.lean           #   A1：laplaceTrunc 定义与基本值
+│       ├── Basic.lean          #   A2：线性、非负、单调
+│       ├── Bound.lean          #   A3：一致界
+│       └── Elementary.lean     #   A4a/A4b：指数积分与幂乘指数积分
 ├── roadmap/                    # ← 人类专属：规格，AI 只读
 │   └── LaplaceMethod/
 │       ├── README.md           #   定义、A1–A10 清单、验收细则
@@ -64,4 +68,4 @@ bash scripts/source-guard.sh
 
 | 领域 | 状态 | 交付数 |
 |------|------|--------|
-| [Laplace 方法与渐近展开](roadmap/LaplaceMethod/README.md) | 未实现 | 10（A1–A10） |
+| [Laplace 方法与渐近展开](roadmap/LaplaceMethod/README.md) | 进行中（A1–A4b 已合并，10 项完成 5） | 10（A1–A10） |
